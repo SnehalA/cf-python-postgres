@@ -1,0 +1,3 @@
+cherrypy
+psycopg2
+requests

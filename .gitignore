@@ -1,0 +1,9 @@
+data-access/target/
+web-services/target/
+/.classpath
+.idea 
+target 
+*.iml 
+*.ipr 
+*.iws
+/sample-data

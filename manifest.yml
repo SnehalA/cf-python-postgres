@@ -1,0 +1,8 @@
+---
+applications:
+- name: cf-python-sample
+  memory: 2G
+  host: cf-python-sample
+  services:
+    - sample-db
+
