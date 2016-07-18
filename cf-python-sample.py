@@ -26,9 +26,9 @@ services = os.getenv("VCAP_SERVICES")
 if services is not None:
     vcap = json.loads(services)
 
-#"postgresql93":
+
 if vcap is not None:
-    postgres = vcap['postgresql93'][0]['credentials']
+    postgres = vcap['postgresql93'][0]['credentials']  #changed from "postgresql"
     if postgres is not None:
         #jdbc_uri = postgres['jdbc_uri'] not avaialble in this env using uri instead
         uri=postgres['uri']
@@ -56,9 +56,13 @@ except:
 class getData:
     ### users api - GET - retrieve users
     def GET(self, **kwargs):
-        dataset=kwargs["frame"]
+        try:
+            dataset=kwargs["frame"]
+        except:
+            dataset='sample.users'
         response = ''
         query = 'SELECT * FROM '+dataset
+        print query
         if cur is not None:
             cur.execute(query)
             conn.commit()
@@ -105,12 +109,12 @@ if __name__ == '__main__':
     print 'connected to postgres : ', connected
 
     cherrypy.tree.mount(
-        getDetails(), '/details',
+        getDetails(), '/',
         {'/':
              {'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
               'tools.sessions.on': True,
               'tools.response_headers.on': True,
-              'tools.response_headers.headers': [('Content-Type', 'application/html')],
+              'tools.response_headers.headers': [('Content-Type', 'text/html')],
               'tools.gzip.on': True
               }
          }
@@ -126,6 +130,7 @@ if __name__ == '__main__':
               }
          }
     )
-
+    cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': port})
     cherrypy.engine.start()
     cherrypy.engine.block()
+
