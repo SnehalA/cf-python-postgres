@@ -4,14 +4,14 @@ A sample Cloud Foundry application written in Python using Flask and psycopg
 ## Getting Started
 This application requires the following python modules:
 
-[Flask](http://flask.pocoo.org/docs/0.10/quickstart)
+[CherryPy](http://docs.cherrypy.org/)
 
 [psycopg2](http://initd.org/psycopg/)
 
 They can be installed by using the following commands
 
 ```bash
-pip install flask
+pip install cherrypy
 
 pip install psycopg2
 ```
@@ -47,7 +47,7 @@ Please create an instance of postgres called *sample-db* in your Cloud Foundry s
 To push the application, use the following command:
 
 ```bash
-cf push -f manifest
+cf push <APP-NAME>
 ```
 
 To see the results, point your browser to
